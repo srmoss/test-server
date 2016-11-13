@@ -10,9 +10,9 @@ router.post('/', function(req, res, next) {
     //Authenticated
     if (req.body.action == 'Authenticate')
     {
-      this.childMonitor = fork('../cgm-remote-monitor/server.js', [], {execArgv: []});
-      this.job = cron.job('0 * * * * *', function populate () {
-        var childPopulate = fork('../cgm-remote-monitor/testing/populate_rest.js', [], {execArgv: []});
+      //this.childMonitor = fork('../cgm-remote-monitor/server.js', [], {execArgv: []});
+      this.job = cron.job('0 */5 * * * *', function populate () {
+        var childPopulate = fork('../cgm-remote-monitor/testing/populate_rest.remote.js', [], {execArgv: []});
       });
       this.job.start();
       res.render('success', { message: 'Success' });
